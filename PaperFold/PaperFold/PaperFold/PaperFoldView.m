@@ -60,9 +60,13 @@
 	return self;
 }
 
-- (void)awakeFromNib
+- (id)initWithCoder:(NSCoder *)aDecoder
 {
-	[self initialize];
+    self = [super initWithCoder:aDecoder];
+    if (self) 
+        [self initialize];
+    
+    return self;
 }
 
 - (void)initialize
@@ -920,7 +924,7 @@
         }
         else return YES;
     }
-    else return NO;
+    else return YES;
 }
 
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
