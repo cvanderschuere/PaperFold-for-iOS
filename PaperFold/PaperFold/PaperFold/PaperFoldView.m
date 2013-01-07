@@ -85,6 +85,7 @@
     
     UIPanGestureRecognizer *panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(onContentViewPanned:)];
 	panGestureRecognizer.delegate = self;
+    panGestureRecognizer.maximumNumberOfTouches = 1;
     [_contentView addGestureRecognizer:panGestureRecognizer];
     [panGestureRecognizer setDelegate:self];
     
@@ -924,7 +925,7 @@
         }
         else return YES;
     }
-    else return YES;
+    else return NO;
 }
 
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
@@ -936,6 +937,15 @@
 	} else {
 		return YES;
 	}
+}
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch{
+    CGPoint location = [touch locationInView:self.contentView];
+    if (location.x < kEdgeScrollWidth || location.x > (self.contentView.frame.size.width-kEdgeScrollWidth))
+    {
+        
+        return YES;
+    }
+    else return NO;
 }
 
 @end
